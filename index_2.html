@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cards Interativos com Navegação de Salas</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background-color: #ae704d;
+                flex-direction: column;
+                overflow: hidden;
+            }
+
+            .container {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .room-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 40px;
+                margin-bottom: 40px;
+            }
+
+            .room {
+                width: 100%;
+                max-width: 1200px;
+                margin-bottom: 20px;
+            }
+
+            .room-title {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #333;
+            }
+
+            
+            .card-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+                margin-top: 20px; /* Espaçamento entre os botões e as imagens */
+            }
+
+            .card {
+                width: 250px;
+                height: 350px;
+                perspective: 1000px;
+            }
+            
+            .card-inner {
+                width: 100%;
+                height: 100%;
+                position: relative;
+                transform-style: preserve-3d;
+                transition: transform 0.6s;
+            }
+            
+            .card:active .card-inner,
+            .card:hover .card-inner {
+            transform: rotateY(180deg);
+
+            }
+            
+            .card-front, .card-back {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                backface-visibility: hidden;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 10px;
+            }
+            
+            .card-front {
+                background-color: #333;
+                color: white;
+                font-size: 20px;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .card-back {
+                background-color: #fff;
+                transform: rotateY(180deg);
+                color: #333;
+                font-size: 16px;
+                text-align: center;
+            }
+            
+            .card-back img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain; /* Ajusta a imagem para caber inteiramente no card, mantendo sua proporção */
+                border-radius: 10px;
+                display: block; /* Garante que a imagem ocupe todo o espaço disponível */
+            }
+            
+            .button-container {
+                margin-top: 20px;
+            }
+
+            .btn {
+                background-color: #333;
+                color: white;
+                padding: 10px 20px;
+                margin: 10px;
+                font-size: 16px;
+                cursor: pointer;
+                border: none;
+                border-radius: 5px;
+            }
+
+            .btn:hover {
+                background-color: #555;
+            }
+
+            .texto_imagem h1 {
+                background-image: url('https://img.freepik.com/vetores-premium/fundo-marrom-abstrato-de-linha-diagonal-com-sombra-dinamica_373171-176.jpg');
+                background-size: cover;
+                background-position: center;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-size: 6.5em; /* Aumenta ainda mais o tamanho do texto */
+                font-weight: bold;
+                text-align: center;
+                display: block; /* Garante que ocupe toda a largura e fique centralizado */
+                width: 100%; /* Para garantir que o texto fique centralizado na página */
+            }
+
+            /* Declarando para página responsiva em dispositivos móveis */
+            @media (max-width: 768px) {
+                .card {
+                    width: 180px;
+                    height: 250px;
+                }
+            
+                .room-container {
+                    margin-bottom: 20px; /* Reduz espaço extra abaixo dos cards */
+                }
+            
+                .button-container {
+                    margin-top: 10px; /* Garante que os botões fiquem visíveis */
+                }
+            }
+            
+        </style>
+    </head>
+
+    <body>
+        <!-- Voltar para Menu Principal -->
+        <div style="text-align: center; margin-top: 20px;">
+            <a href="index.html" style="background-color: #9e5414; color: #f5f5f5; padding: 20px 40px; text-decoration: none; border-radius: 10px; font-size: 1.8em; display: inline-block;" onclick="soltarConfetes(event)">
+            🎨 Voltar 🎨
+            </a>
+        </div>
+
+        <div class="container" id="menu-principal">
+            <div class="texto_imagem">
+                <h1>Galeira Menestrel</h1>
+            </div>
+
+            <div class="button-container">
+                <button class="btn" onclick="showRoom(1)">Sala 1</button>
+                <button class="btn" onclick="showRoom(2)">Sala 2</button>
+                <button class="btn" onclick="showRoom(3)">Sala 3</button>
+                <button class="btn" onclick="showRoom(4)">Sala 4</button>
+            </div>
+        </div>
+
+        <!-- Sala 1 -->
+        <div class="container" id="sala-1" style="display: none;">
+            <h1 class="room-title">Sala 1</h1>
+            <div class="card-container" id="cards-sala-1">
+                <div class="card"><div class="card-inner"><div class="card-front"><h3>Argumentos</h3></div><div class="card-back"><img src="./galeria_img/Argumentos.jpg" alt="Imagem 1"></div></div></div>
+                <div class="card"><div class="card-inner"><div class="card-front"><h3>Chayanne & Tallulah</h3></div><div class="card-back"><img src="./galeria_img/Chayanne & Tallulah QSMP.jpg" alt="Imagem 2"></div></div></div>
+                <div class="card"><div class="card-inner"><div class="card-front"><h3>DANDADAN X Sinais do Outro Mundo</h3></div><div class="card-back"><img src="./galeria_img/DANDADAN X Sinais do Outro Lado.jpg" alt="Imagem 3"></div></div></div>
+                <div class="card"><div class="card-inner"><div class="card-front"><h3>Desculpa, sou meio manco!</h3></div><div class="card-back"><img src="./galeria_img/Desculpa, sou meio manco!.jpg" alt="Imagem 4"></div></div></div>
+                <div class="card"><div class="card-inner"><div class="card-front"><h3>Esta chovendo la fora</h3></div><div class="card-back"><img src="./galeria_img/Esta chovendo la fora.jpg" alt="Imagem 5"></div></div></div>
+            </div>
+            <div class="button-container">
+                <button class="btn" onclick="backToMenu()">Voltar ao Menu</button>
+                <button class="btn" onclick="revealAllImages('sala-1')">Revelar Todas as Imagens</button>
+                <button class="btn" onclick="hideAllImages('sala-1')">Esconder Imagens</button>
+            </div>
+        </div>
+
+        <!-- Sala 2 -->
+        <div class="container" id="sala-2" style="display: none;">
+            <h1 class="room-title">Sala 2</h1>
+            <div class="card-container" id="cards-sala-2">
+                <div class="card"><div class="card-inner"><div class="card-front"><h3>⭐EVERLEE⭐</h3></div><div class="card-back"><img src="./galeria_img/Everlee.jpg" alt="Imagem 6"></div></div></div>
+                <div class="card"><div class="card-inner"><div class="card-front"><h3>Falha da Germa</h3></div><div class="card-back"><img src="./galeria_img/Falha da Germa.jpg" alt="Imagem 7"></div></div></div>
+                <div class="card"><div class="card-inner"><div class="card-front"><h3>Fotografia</h3></div><div class="card-back"><img src="./galeria_img/Fotografia.jpg" alt="Imagem 8"></div></div></div>
+                <div class="card"><div class="card-inner"><div class="card-front"><h3>Nami e Luffy</h3></div><div class="card-back"><img src="./galeria_img/Nami e Luffy.jpg" alt="Imagem 9"></div></div></div>
+                <div class="card"><div class="card-inner"><div class="card-front"><h3>Os Irmãos Vitorinos</h3></div><div class="card-back"><img src="./galeria_img/Os Irmãos Vitorinos.jpg" alt="Imagem 10"></div></div></div>
+            </div>
+            <div class="button-container">
+                <button class="btn" onclick="backToMenu()">Voltar ao Menu</button>
+                <button class="btn" onclick="revealAllImages('sala-2')">Revelar Todas as Imagens</button>
+                <button class="btn" onclick="hideAllImages('sala-2')">Esconder Imagens</button>
+            </div>
+        </div>
+
+        <!-- Sala 3 -->
+        <div class="container" id="sala-3" style="display: none;">
+            <h1 class="room-title">Sala 3</h1>
+            <div class="card-container" id="cards-sala-3">
+                <div class="card"><div class="card-inner"><div class="card-front"><h3>Piratas Sombrios</h3></div><div class="card-back"><img src="./galeria_img/Piratas Sombrios.jpg" alt="Imagem 11"></div></div></div>
+                <div class="card"><div class="card-inner"><div class="card-front"><h3>Quackity</h3></div><div class="card-back"><img src="./galeria_img/Quackity QSMP.jpg" alt="Imagem 12"></div></div></div>
+                <div class="card"><div class="card-inner"><div class="card-front"><h3>Richarlyson</h3></div><div class="card-back"><img src="./galeria_img/Richarlyson.jpg" alt="Imagem 13"></div></div></div>
+                <div class="card"><div class="card-inner"><div class="card-front"><h3>Twist and Shout!</h3></div><div class="card-back"><img src="./galeria_img/Twist and Shout!.jpg" alt="Imagem 14"></div></div></div>
+                <div class="card"><div class="card-inner"><div class="card-front"><h3>Vou parar de Pensar</h3></div><div class="card-back"><img src="./galeria_img/Vou Parar de Pensar.jpg" alt="Imagem 15"></div></div></div>
+            </div>
+            <div class="button-container">
+                <button class="btn" onclick="backToMenu()">Voltar ao Menu</button>
+                <button class="btn" onclick="revealAllImages('sala-3')">Revelar Todas as Imagens</button>
+                <button class="btn" onclick="hideAllImages('sala-3')">Esconder Imagens</button>
+            </div>
+        </div>
+
+        <!-- Sala 4 -->
+        <div class="container" id="sala-4" style="display: none;">
+            <h1 class="room-title">Sala 4</h1>
+            <div class="card-container" id="cards-sala-4">
+                <div class="card"><div class="card-inner"><div class="card-front"><h3>Yohiro</h3></div><div class="card-back"><img src="./galeria_img/Yohiro.jpg" alt="Imagem 1"></div></div></div>
+            </div>
+            <div class="button-container">
+                <button class="btn" onclick="backToMenu()">Voltar ao Menu</button>
+                <button class="btn" onclick="revealAllImages('sala-4')">Revelar Todas as Imagens</button>
+                <button class="btn" onclick="hideAllImages('sala-4')">Esconder Imagens</button>
+            </div>
+        </div>
+
+        <script>
+            function showRoom(room) {
+                document.getElementById('menu-principal').style.display = 'none';
+                document.getElementById('sala-1').style.display = room === 1 ? 'block' : 'none';
+                document.getElementById('sala-2').style.display = room === 2 ? 'block' : 'none';
+                document.getElementById('sala-3').style.display = room === 3 ? 'block' : 'none';
+                document.getElementById('sala-4').style.display = room === 4 ? 'block' : 'none';
+            }
+
+            function backToMenu() {
+                document.getElementById('menu-principal').style.display = 'block';
+                document.getElementById('sala-1').style.display = 'none';
+                document.getElementById('sala-2').style.display = 'none';
+                document.getElementById('sala-3').style.display = 'none';
+                document.getElementById('sala-4').style.display = 'none';
+            }
+
+            function revealAllImages(roomId) {
+                let cards = document.querySelectorAll(`#${roomId} .card-inner`);
+                cards.forEach(card => {
+                    card.style.transform = "rotateY(180deg)"; // Revela todas as imagens
+                });
+            }
+
+            function hideAllImages(roomId) {
+                let cards = document.querySelectorAll(`#${roomId} .card-inner`);
+                cards.forEach(card => {
+                    card.style.transform = "rotateY(0deg)"; // Esconde todas as imagens
+                });
+            }
+        </script>
+
+    </body>
+</html>
